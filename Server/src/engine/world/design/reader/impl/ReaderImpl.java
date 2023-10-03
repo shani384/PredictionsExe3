@@ -30,7 +30,7 @@ import engine.world.design.definition.property.impl.StringPropertyDefinition;
 import engine.world.design.definition.value.generator.api.ValueGeneratorFactory;
 import engine.world.design.world.impl.WorldImpl;
 import engine.world.design.reader.api.Reader;
-import schema2.generated.*;
+import schema.generated.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -92,8 +92,8 @@ public class ReaderImpl implements Reader {
         buildEnvironmentFromPRD(prdWorld.getPRDEnvironment());
         buildGridFromPRD(prdWorld.getPRDGrid());
         buildRulesFromPRD(prdWorld.getPRDRules());
-        buildTerminationFromPRD(prdWorld.getPRDTermination());
-        createdWorld.setNumOfThreads(prdWorld.getPRDThreadCount());
+        //buildTerminationFromPRD(prdWorld.getPRDTermination());
+        //createdWorld.setNumOfThreads(prdWorld.getPRDThreadCount());
     }
 
     private void buildGridFromPRD(PRDWorld.PRDGrid prdGrid) {
