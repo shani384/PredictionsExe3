@@ -67,7 +67,6 @@ public class LoginPageController {
                         errorMessageProperty.set("Something went wrong: " + e.getMessage())
                 );
             }
-
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 if (response.code() != 200) {
@@ -77,8 +76,9 @@ public class LoginPageController {
                     );
                 } else {
                     Platform.runLater(() -> {
+                        System.out.println("logged in");
                         appMainController.updateUserName(userName);
-                        //AppMainController.switchToChatRoom();
+                        //appMainController.switchToChatRoom();
                     });
                 }
             }

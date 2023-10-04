@@ -1,6 +1,7 @@
-package servlet;
+package servlet.admin;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +14,9 @@ import java.io.IOException;
 
 import static utils.Constants.USERNAME;
 
-public class LoginServlet extends HttpServlet {
+
+@WebServlet("/admin/login")
+public class AdminLogin extends HttpServlet {
 
     // urls that starts with forward slash '/' are considered absolute
     // urls that doesn't start with forward slash '/' are considered relative to the place where this servlet request comes from
@@ -23,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 
 
    // private final String CHAT_ROOM_URL = "../chatroom/chatroom.html";
-    private final String SIGN_UP_URL = "../signup/signup.html";
+   private final String SIGN_UP_URL = "../signup/signup.html";
     private final String LOGIN_ERROR_URL = "/pages/loginerror/login_attempt_after_error.jsp";  // must start with '/' since will be used in request dispatcher...
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,8 +40,8 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String usernameFromSession = SessionUtils.getUsername(request);
         UserManager userManager = ServletUtils.getUserManager(getServletContext());
+        String usernameFromSession = SessionUtils.getUsername(request);
         if (usernameFromSession == null) {
             //user is not logged in yet
             String usernameFromParameter = request.getParameter(USERNAME);
@@ -46,7 +49,7 @@ public class LoginServlet extends HttpServlet {
                 //no username in session and no username in parameter -
                 //redirect back to the index page
                 //this return an HTTP code back to the browser telling it to load
-                response.sendRedirect(SIGN_UP_URL);
+                response.setStatus(HttpServletResponse.SC_CONFLICT);// TODO: 04/10/2023
             } else {
                 //normalize the username value
                 usernameFromParameter = usernameFromParameter.trim();
@@ -73,7 +76,7 @@ public class LoginServlet extends HttpServlet {
                         // see this link for more details:
                         // http://timjansen.github.io/jarfiller/guide/servlet25/requestdispatcher.xhtml
                         request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
-                        getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
+                        response.setStatus(HttpServletResponse.SC_CONFLICT);
                     }
                     else {
                         //add the new user to the users list
@@ -82,15 +85,17 @@ public class LoginServlet extends HttpServlet {
                         //the true parameter means that if a session object does not exists yet
                         //create a new one
                         request.getSession(true).setAttribute(Constants.USERNAME, usernameFromParameter);
-
                         //redirect the request to the chat room - in order to actually change the URL
-                        System.out.println("On login, request URI is: " + request.getRequestURI());
+                        System.out.println("On login, request URI is: " + request.getRequestURI() + "user name is:" + usernameFromParameter);
                         //response.sendRedirect(CHAT_ROOM_URL);
                     }
                 }
             }
         } else {
             //user is already logged in
+            String errorMessage = "Username already exists. Please enter a different username.";
+            request.setAttribute(Constants.USER_NAME_ERROR, errorMessage);
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
             //response.sendRedirect(CHAT_ROOM_URL);
         }
     }
