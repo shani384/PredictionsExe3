@@ -1,7 +1,8 @@
-package component.mainapp;
+package client.component.mainapp;
 
-import component.login.LoginPageController;
-import http.util.Constants;
+import client.component.header.HeaderController;
+import client.component.login.LoginPageController;
+import client.util.Constants;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -16,29 +18,29 @@ import java.net.URL;
 
 public class AppMainController {
 
-    //    @FXML private Parent httpStatusComponent;
-//    @FXML private StatusController httpStatusComponentController;
     private GridPane loginComponent;
-    private LoginPageController logicController;
-  //  private Parent chatRoomComponent;
-   // private ChatRoomMainController chatRoomComponentController;
 
-   // @FXML private Label userGreetingLabel;
-   @FXML private AnchorPane mainPanel;
+    @FXML private GridPane dynamicGridPane;
+    private LoginPageController logicController;
+
+    @FXML private Parent headerComponent;
+    @FXML
+    private HeaderController headerComponentController;
+
+
+   @FXML private BorderPane BorderPaneMain;
     private final StringProperty currentUserName;
 
     public AppMainController() {
         currentUserName = new SimpleStringProperty("");
-                //(JHON_DOE)
     }
 
     @FXML
     public void initialize() {
-        //userGreetingLabel.textProperty().bind(Bindings.concat("Hello ", currentUserName));
-
-        // prepare components
-        loadLoginPage();
-        //loadChatRoomPage();
+        if (headerComponentController != null) {
+            headerComponentController.setMainController(this);
+        }
+        headerComponentController.nameLabel.textProperty().bind(currentUserName);
     }
 
     public void updateUserName(String userName) {
@@ -46,8 +48,8 @@ public class AppMainController {
     }
 
     private void setMainPanelTo(Parent pane) {
-        mainPanel.getChildren().clear();
-        mainPanel.getChildren().add(pane);
+        dynamicGridPane.getChildren().clear();
+        dynamicGridPane.getChildren().add(pane);
         AnchorPane.setBottomAnchor(pane, 1.0);
         AnchorPane.setTopAnchor(pane, 1.0);
         AnchorPane.setLeftAnchor(pane, 1.0);
@@ -56,7 +58,7 @@ public class AppMainController {
 
     //@Override
     public void close() throws IOException {
-      //  chatRoomComponentController.close();
+
     }
 
     private void loadLoginPage() {
@@ -105,5 +107,6 @@ public class AppMainController {
     }
 
     public void switchToMainView() {
+
     }
 }

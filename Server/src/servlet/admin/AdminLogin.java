@@ -17,7 +17,6 @@ import static utils.Constants.USERNAME;
 
 @WebServlet("/login")
 public class AdminLogin extends HttpServlet {
-
     // urls that starts with forward slash '/' are considered absolute
     // urls that doesn't start with forward slash '/' are considered relative to the place where this servlet request comes from
     // you can use absolute paths, but then you need to build them from scratch, starting from the context path

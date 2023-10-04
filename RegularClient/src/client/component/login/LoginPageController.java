@@ -1,18 +1,21 @@
-package component.login;
+package client.component.login;
 
+import client.util.Constants;
+import client.util.HttpClientUtil;
 import com.sun.istack.internal.NotNull;
-import com.sun.xml.internal.ws.util.xml.CDATA;
-import component.mainapp.AppMainController;
-import http.util.Constants;
-import http.util.HttpClientUtil;
+import client.component.mainapp.AppMainController;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -22,14 +25,14 @@ import java.io.IOException;
 
 public class LoginPageController {
     @FXML
-    public Label LabelLoginPage;
-    public Label LabelWelcome;
+    private Label LabelLoginPage;
+    private Label LabelWelcome;
     @FXML
-    public TextField userNameTextField;
+    private TextField userNameTextField;
     @FXML
-    public Button ButtonLogin;
+    private Button ButtonLogin;
     @FXML
-    public Label errorMessageLabel;
+    private Label errorMessageLabel;
     //private ChatAppMainController chatAppMainController;
     private final StringProperty errorMessageProperty = new SimpleStringProperty();
     private AppMainController appMainController;
@@ -77,15 +80,39 @@ public class LoginPageController {
                     );
                 } else {
                     Platform.runLater(() -> {
-                        appMainController.updateUserName(userName);
-                        appMainController.switchToMainView();
+                        openMainAppWindow(userName);
                     });
                 }
             }
         });
     }
 
+    private void openMainAppWindow(String userName) {
+        try {
+            // Load the main application FXML and controller
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("../mainapp/mainPanelView.fxml"));
+            Parent mainRoot = mainLoader.load();
+            AppMainController appMainController = mainLoader.getController();
+            appMainController.updateUserName(userName);
+            // Create a new scene with the main application view
+            Scene mainScene = new Scene(mainRoot);
 
+            // Create a new stage for the main application
+            Stage mainStage = new Stage();
+
+            // Set the main scene in the new stage
+            mainStage.setScene(mainScene);
+            mainStage.setTitle("Main Application");
+            mainStage.show();
+
+            // Close the login window (current stage)
+            Stage loginStage = (Stage) ButtonLogin.getScene().getWindow();
+            loginStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle any exceptions related to loading the main app scene
+        }
+    }
 
 
     @FXML

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="gridPaneHeader" hgap="5.0" minWidth="531.0" prefHeight="168.0" prefWidth="647.0" stylesheets="@../body/centerStyle.css" vgap="5.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.component.header.HeaderController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" percentWidth="5.0" />
+        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints hgrow="NEVER" maxWidth="1.7976931348623157E308" percentWidth="5.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="29.33331298828125" minHeight="30.0" prefHeight="18.666656494140625" vgrow="NEVER" />
+        <RowConstraints maxHeight="35.0" minHeight="40.0" prefHeight="16.333343505859375" vgrow="NEVER" />
+        <RowConstraints maxHeight="32.0" minHeight="30.0" prefHeight="17.333343505859375" vgrow="NEVER" />
+    </rowConstraints>
+    <children>
+        <HBox alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+            <children>
+                <Button fx:id="ButtonDetails" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onDetailsClicked" prefHeight="30.0" prefWidth="150.0" styleClass="execute-button" text="Simulation Details" />
+                <Button fx:id="ButtonNewExec" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onNewExecutionClicked" prefHeight="30.0" prefWidth="150.0" styleClass="execute-button" text="Request" />
+                <Button fx:id="ButtonResults" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onResultsClicked" prefHeight="30.0" prefWidth="150.0" styleClass="execute-button" text="Execution" />
+                <Button fx:id="ButtonQueueManage" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onQueueManagementClicked" prefHeight="30.0" prefWidth="150.0" text="Results" />
+            </children>
+            <GridPane.margin>
+                <Insets top="30.0" />
+            </GridPane.margin>
+        </HBox>
+        <Label prefHeight="27.0" prefWidth="185.0" text="Predictions -Client" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.halignment="CENTER">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <Label text="Name:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameLabel" text="&lt;john Doh&gt;">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+    </children>
+</GridPane>

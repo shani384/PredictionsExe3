@@ -1,4 +1,4 @@
-package http.util;
+package client.util;
 
 import com.google.gson.Gson;
 
@@ -10,8 +10,8 @@ public class Constants {
     public final static String CHAT_LINE_FORMATTING = "%tH:%tM:%tS | %.10s: %s%n";
 
     // fxml locations
-    public static final String MAIN_PAGE_FXML_RESOURCE_LOCATION = "/component/mainapp/mainPanelView.fxml";
-    public static final String LOGIN_PAGE_FXML_RESOURCE_LOCATION = "/component/login/loginPageView.fxml";
+    public static final String MAIN_PAGE_FXML_RESOURCE_LOCATION = "/client/component/mainapp/mainPanelView.fxml";
+    public static final String LOGIN_PAGE_FXML_RESOURCE_LOCATION = "/client/component/login/loginPageView.fxml";
     public final static String CHAT_ROOM_FXML_RESOURCE_LOCATION = "/chat/client/component/chatroom/chat-room-main.fxml";
 
     // Server resources locations
