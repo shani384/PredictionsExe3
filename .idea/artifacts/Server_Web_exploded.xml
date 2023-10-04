@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Server:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Server_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Server/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Server" />
+          <element id="module-output" name="Engine" />
+          <element id="module-output" name="DTOManager" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/annotations-13.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/gson-2.8.8-javadoc.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/okio-2.8.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/okhttp-4.9.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/kotlin-stdlib-common-1.4.10.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/kotlin-stdlib-1.4.10.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/gson-2.8.8.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
