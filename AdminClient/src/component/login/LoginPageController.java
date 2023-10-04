@@ -1,6 +1,7 @@
 package component.login;
 
 import com.sun.istack.internal.NotNull;
+import com.sun.xml.internal.ws.util.xml.CDATA;
 import component.mainapp.AppMainController;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -24,7 +25,7 @@ public class LoginPageController {
     public Label LabelLoginPage;
     public Label LabelWelcome;
     @FXML
-    public TextField TextUserName;
+    public TextField userNameTextField;
     @FXML
     public Button ButtonLogin;
     @FXML
@@ -44,11 +45,12 @@ public class LoginPageController {
     @FXML
     private void loginButtonClicked(ActionEvent event) {
 
-        String userName = TextUserName.getText();
+        String userName = userNameTextField.getText();
         if (userName.isEmpty()) {
-            errorMessageProperty.set("User name is empty.\n You can't login with empty user name");
+            errorMessageProperty.set("User name is empty. You can't login with empty user name");
             return;
         }
+
         //noinspection ConstantConditions
         String finalUrl = HttpUrl
                 .parse(Constants.LOGIN_PAGE)
@@ -57,8 +59,6 @@ public class LoginPageController {
                 .build()
                 .toString();
 
-        //updateHttpStatusLine("New request is launched for: " + finalUrl);
-        // TODO: 04/10/2023  
         HttpClientUtil.runAsync(finalUrl, new Callback() {
 
             @Override
@@ -78,14 +78,17 @@ public class LoginPageController {
                 } else {
                     Platform.runLater(() -> {
                         appMainController.updateUserName(userName);
-                        //AppMainController.switchToChatRoom();
+//                        appMainController.switchToMainView();
                     });
                 }
             }
         });
     }
 
-        @FXML
+
+
+
+    @FXML
         private void userNameKeyTyped(KeyEvent event) {
             errorMessageProperty.set("");
         }
