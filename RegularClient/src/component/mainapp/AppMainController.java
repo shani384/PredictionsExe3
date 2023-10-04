@@ -1,5 +1,7 @@
 package component.mainapp;
 
+import component.login.LoginPageController;
+import http.util.Constants;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -8,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import util.http.Constants;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,7 @@ public class AppMainController {
     //    @FXML private Parent httpStatusComponent;
 //    @FXML private StatusController httpStatusComponentController;
     private GridPane loginComponent;
+    private LoginPageController logicController;
   //  private Parent chatRoomComponent;
    // private ChatRoomMainController chatRoomComponentController;
 
@@ -63,6 +65,8 @@ public class AppMainController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(loginPageUrl);
             loginComponent = fxmlLoader.load();
+            logicController = fxmlLoader.getController();
+            logicController.setAppMainController(this);
             setMainPanelTo(loginComponent);
         } catch (IOException e) {
             e.printStackTrace();

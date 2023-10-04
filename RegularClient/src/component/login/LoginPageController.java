@@ -3,6 +3,8 @@ package component.login;
 import com.sun.istack.internal.NotNull;
 import com.sun.xml.internal.ws.util.xml.CDATA;
 import component.mainapp.AppMainController;
+import http.util.Constants;
+import http.util.HttpClientUtil;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -15,8 +17,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Response;
-import util.http.Constants;
-import util.http.HttpClientUtil;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
