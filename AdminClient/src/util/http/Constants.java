@@ -11,17 +11,17 @@ public class Constants {
     public final static String CHAT_LINE_FORMATTING = "%tH:%tM:%tS | %.10s: %s%n";
 
     // fxml locations
-    public final static String MAIN_PAGE_FXML_RESOURCE_LOCATION = "/chat/client/component/main/chat-app-main.fxml";
-    public final static String LOGIN_PAGE_FXML_RESOURCE_LOCATION = "/chat/client/component/login/login.fxml";
+    public static final String MAIN_PAGE_FXML_RESOURCE_LOCATION = "/component/mainapp/mainPanelView.fxml";
+    public static final String LOGIN_PAGE_FXML_RESOURCE_LOCATION = "/component/login/loginPageView.fxml";
     public final static String CHAT_ROOM_FXML_RESOURCE_LOCATION = "/chat/client/component/chatroom/chat-room-main.fxml";
 
     // Server resources locations
     public final static String BASE_DOMAIN = "localhost";
     private final static String BASE_URL = "http://" + BASE_DOMAIN + ":8080";
-    private final static String CONTEXT_PATH = "/Server_Web_exploded";// TODO: 03/10/2023 exploded?????????????? 
+    private final static String CONTEXT_PATH = "/Server_Web_exploded";// TODO: 03/10/2023 exploded??????????????
     private final static String FULL_SERVER_PATH = BASE_URL + CONTEXT_PATH;
 
-    public final static String LOGIN_PAGE = FULL_SERVER_PATH + "/loginResponse";
+    public final static String LOGIN_PAGE = FULL_SERVER_PATH + "/admin/login";
     public final static String USERS_LIST = FULL_SERVER_PATH + "/userslist";
     public final static String LOGOUT = FULL_SERVER_PATH + "/chat/logout";
     public final static String SEND_CHAT_LINE = FULL_SERVER_PATH + "/pages/chatroom/sendChat";

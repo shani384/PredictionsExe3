@@ -9,13 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import util.http.Constants;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class AppMainController {
 
-    private static final String LOGIN_PAGE_FXML_RESOURCE_LOCATION = "/component/login/loginPageView.fxml";
     //    @FXML private Parent httpStatusComponent;
 //    @FXML private StatusController httpStatusComponentController;
     private GridPane loginComponent;
@@ -60,14 +60,14 @@ public class AppMainController {
     }
 
     private void loadLoginPage() {
-        URL loginPageUrl = getClass().getResource(LOGIN_PAGE_FXML_RESOURCE_LOCATION);
+        URL loginPageUrl = getClass().getResource(Constants.LOGIN_PAGE_FXML_RESOURCE_LOCATION);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(loginPageUrl);
             loginComponent = fxmlLoader.load();
             logicController = fxmlLoader.getController();
             logicController.setAppMainController(this);
-            //setMainPanelTo(loginComponent);
+            setMainPanelTo(loginComponent);
         } catch (IOException e) {
             e.printStackTrace();
         }
