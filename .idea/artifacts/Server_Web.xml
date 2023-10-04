@@ -3,6 +3,12 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Server_Web</output-path>
     <root id="archive" name="Server_Web.war">
       <element id="artifact" artifact-name="Server:Web exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Engine" />
+          <element id="module-output" name="DTOManager" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

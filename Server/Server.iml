@@ -93,6 +93,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="DTOManager" />
+    <orderEntry type="module" module-name="Engine" />
   </component>
 </module>
