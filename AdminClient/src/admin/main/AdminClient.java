@@ -13,11 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 
 public class AdminClient extends Application {
-    private AppMainController appMainController;
+    private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
 
+        this.primaryStage = primaryStage;
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(600);
         primaryStage.setTitle("Predictions Admin Client");
@@ -27,7 +28,6 @@ public class AdminClient extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(url);
             Parent root = fxmlLoader.load();
-            appMainController = fxmlLoader.getController();
             Scene scene = new Scene(root, 700, 600);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -39,7 +39,7 @@ public class AdminClient extends Application {
     @Override
     public void stop() throws Exception {
         HttpClientUtil.shutdown();
-        appMainController.close();
+        primaryStage.close();
     }
 
     public static void main(String[] args) {
