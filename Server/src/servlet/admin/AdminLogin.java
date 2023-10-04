@@ -15,7 +15,7 @@ import java.io.IOException;
 import static utils.Constants.USERNAME;
 
 
-@WebServlet("/admin/login")
+@WebServlet("/login")
 public class AdminLogin extends HttpServlet {
 
     // urls that starts with forward slash '/' are considered absolute

@@ -78,7 +78,7 @@ public class LoginPageController {
                 } else {
                     Platform.runLater(() -> {
                         appMainController.updateUserName(userName);
-//                        appMainController.switchToMainView();
+                        appMainController.switchToMainView();
                     });
                 }
             }
