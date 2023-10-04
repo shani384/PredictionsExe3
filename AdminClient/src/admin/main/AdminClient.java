@@ -1,6 +1,6 @@
-package main;
+package admin.main;
 
-import component.mainapp.AppMainController;
+import admin.component.mainapp.AppMainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,10 +22,10 @@ public class AdminClient extends Application {
         primaryStage.setMinWidth(600);
         primaryStage.setTitle("Predictions Admin Client");
 
-        URL loginPage = getClass().getResource(Constants.MAIN_PAGE_FXML_RESOURCE_LOCATION);
+        URL url = getClass().getResource(Constants.MAIN_PAGE_FXML_RESOURCE_LOCATION);
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(loginPage);
+            fxmlLoader.setLocation(url);
             Parent root = fxmlLoader.load();
             appMainController = fxmlLoader.getController();
             Scene scene = new Scene(root, 700, 600);

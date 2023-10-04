@@ -1,4 +1,4 @@
-package component.mainapp;
+package admin.component.mainapp;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -35,7 +35,6 @@ public class AppMainController {
         //userGreetingLabel.textProperty().bind(Bindings.concat("Hello ", currentUserName));
 
         // prepare components
-        loadLoginPage();
         //loadChatRoomPage();
     }
 
@@ -57,17 +56,7 @@ public class AppMainController {
       //  chatRoomComponentController.close();
     }
 
-    private void loadLoginPage() {
-        URL loginPageUrl = getClass().getResource(Constants.LOGIN_PAGE_FXML_RESOURCE_LOCATION);
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(loginPageUrl);
-            loginComponent = fxmlLoader.load();
-            setMainPanelTo(loginComponent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 //    private void loadChatRoomPage() {
 //        URL loginPageUrl = getClass().getResource(CHAT_ROOM_FXML_RESOURCE_LOCATION);
