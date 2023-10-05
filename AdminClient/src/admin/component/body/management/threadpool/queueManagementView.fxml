@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="300.0" prefWidth="371.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.component.body.management.threadpool.QueueManagementView">
+    <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Thread Pool Information" />
+    <Label fx:id="queueSizeLabel" />
+    <Label fx:id="workingThreadsLabel" />
+    <Label fx:id="finishedThreadsLabel" />
+   <AnchorPane prefHeight="50.0">
+      <children>
+         <Label layoutX="124.0" layoutY="6.0" text="Thread Pool Load:" />
+         <ProgressBar fx:id="progressBar" layoutX="-7.0" layoutY="27.0" prefHeight="18.0" prefWidth="347.0" progress="0.0" />
+      </children>
+   </AnchorPane>
+   <AnchorPane prefHeight="100.0">
+      <children>
+          <Button fx:id="SetThreadsButton" alignment="CENTER_LEFT" layoutX="240.0" layoutY="110.0" mnemonicParsing="false" text="Set" />
+         <Spinner layoutX="84.0" layoutY="110.0" />
+         <Label layoutX="114.0" layoutY="85.0" text="Set Thread Pool Size:" />
+      </children>
+   </AnchorPane>
+
+</VBox>

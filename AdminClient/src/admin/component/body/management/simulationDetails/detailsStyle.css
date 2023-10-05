@@ -1,0 +1,42 @@
+/* SplitPane Style */
+.split-pane {
+    -fx-background-color: #f0f5f9; /* Light Blue */
+}
+
+/* TreeView Style */
+.tree-view {
+    -fx-background-color: #d1e3ed; /* Medium Blue */
+    -fx-text-fill: #000000; /* Black text color */
+}
+
+/* FlowPane Style */
+.flow-pane {
+    -fx-background-color: #e6f0f4; /* Lighter Blue */
+}
+
+/* TreeView Cell Style */
+.tree-cell {
+    -fx-background-color: transparent;
+}
+
+/* TreeView Row Even Style */
+.tree-cell:even {
+    -fx-background-color: #c6dbed; /* Light Blue */
+}
+
+/* TreeView Row Odd Style */
+.tree-cell:odd {
+    -fx-background-color: #a4c7e0; /* Slightly darker Blue */
+}
+
+/* TreeView Hover Style */
+.tree-cell:hover {
+    -fx-background-color: #92b6d4; /* Hover effect */
+}
+
+/* FlowPane Style */
+.flow-pane {
+    -fx-background-color: #e6f0f4; /* Lighter Blue */
+}
+
+

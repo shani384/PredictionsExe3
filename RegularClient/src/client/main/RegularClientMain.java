@@ -1,8 +1,6 @@
 package client.main;
 
-import client.util.Constants;
-import client.util.HttpClientUtil;
-import client.component.mainapp.AppMainController;
+import client.http.util.HttpClientUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class RegularClientMain extends Application {
 

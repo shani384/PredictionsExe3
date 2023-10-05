@@ -19,7 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 // TODO: 10/08/2023 After deleting old World Change to World
 
 public class EngineImpl implements Engine {
-    private static final String JAXB_XML_PACKAGE_NAME = "schema2.generated";
+    private static final String JAXB_XML_PACKAGE_NAME = "schema.generated";
     private boolean isLoadedWorld = false;
     private final SimpleStringProperty fileName = new SimpleStringProperty();
     private final Reader myReader;
@@ -182,6 +182,14 @@ public class EngineImpl implements Engine {
         threadExecutor = Executors.newFixedThreadPool(myWorld.getNumOfThreads());
         //threadExecutor = Executors.newFixedThreadPool(1);
     }
+
+    @Override
+    public void readWorldWithServer(StringBuilder fileContent){
+        myReader.readWorldFromStringBuilder(fileContent, JAXB_XML_PACKAGE_NAME);
+        myWorld = myReader.getWorld();
+        isLoadedWorld = true;
+    }
+
     @Override
     public void readWorldFromXml(String XML_PATH, String JAXB_XML_PACKAGE_NAME) {
         myReader.readWorldFromXml(XML_PATH, JAXB_XML_PACKAGE_NAME);
