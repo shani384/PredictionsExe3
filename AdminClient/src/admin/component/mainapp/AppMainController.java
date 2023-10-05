@@ -12,9 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import okhttp3.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
+import static admin.http.util.HttpClientUtil.HTTP_CLIENT;
 
 public class AppMainController {
 
@@ -100,5 +104,27 @@ public class AppMainController {
         } catch (IOException e) {
             throw new RuntimeException("fuck");
         }
+    }
+
+    public void readWorld() throws IOException {
+        String filePath = managementController.getFilePath();
+        File f = new File(filePath);
+
+        RequestBody body =
+                new MultipartBody.Builder()
+                        .addFormDataPart("file1", f.getName(), RequestBody.create(f, MediaType.parse("text/plain")))
+                        //.addFormDataPart("key1", "value1") // you can add multiple, different parts as needed
+                        .build();
+
+        Request request = new Request.Builder()
+                .url(Constants.FILE_UPLOAD_URL)
+                .post(body)
+                .build();
+
+        Call call = HTTP_CLIENT.newCall(request);
+
+        Response response = call.execute();
+
+        System.out.println(response.body().string());
     }
 }

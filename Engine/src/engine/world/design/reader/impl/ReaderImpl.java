@@ -35,17 +35,14 @@ import schema.generated.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
+
 
 public class ReaderImpl implements Reader {
 
     World createdWorld;
     PRDWorld prdWorld;
-
 
 
     @Override
@@ -67,6 +64,21 @@ public class ReaderImpl implements Reader {
         }
     }
 
+    @Override
+    public void readWorldFromStringBuilder(StringBuilder xmlData, String JAXB_XML_PACKAGE_NAME) {
+        createdWorld = new WorldImpl();
+        try {
+            if (xmlData != null && xmlData.length() > 0) {
+                prdWorld = deserializedFrom(JAXB_XML_PACKAGE_NAME, new ByteArrayInputStream(xmlData.toString().getBytes()));
+                readPRDWorld();
+            } else {
+                throw new IllegalArgumentException("XML data is empty or null.");
+            }
+        } catch (JAXBException e) {
+            throw new RuntimeException(e.toString());
+        }
+    }
+
 //    @Override
 //    // after this method The Instance has its own copy of World build from the XML
 //    public void readWorldFromXml(String XML_PATH, String JAXB_XML_PACKAGE_NAME) {
@@ -81,7 +93,7 @@ public class ReaderImpl implements Reader {
 //        }
 //    }
 
-    private static PRDWorld deserializedFrom(String JAXB_XML_PACKAGE_NAME, InputStream in)throws JAXBException {
+    private static PRDWorld deserializedFrom(String JAXB_XML_PACKAGE_NAME, InputStream in) throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(JAXB_XML_PACKAGE_NAME);
         Unmarshaller u = jc.createUnmarshaller();
         return (PRDWorld) u.unmarshal(in);
@@ -99,10 +111,10 @@ public class ReaderImpl implements Reader {
     private void buildGridFromPRD(PRDWorld.PRDGrid prdGrid) {
         int columns = prdGrid.getColumns();
         int rows = prdGrid.getRows();
-        if(columns < 10 || columns > 100){
+        if (columns < 10 || columns > 100) {
             throw new RuntimeException("Size of columns is invalid");
         }
-        if (rows < 10 || rows > 100){
+        if (rows < 10 || rows > 100) {
             throw new RuntimeException("Size of rows is invalid");
         }
         GridImpl grid = new GridImpl(prdGrid.getColumns(), prdGrid.getRows());
@@ -111,34 +123,32 @@ public class ReaderImpl implements Reader {
 
     private void buildTerminationFromPRD(PRDTermination prdTermination) {
         TerminationImpl termination = new TerminationImpl();
-        for (Object prdTicksOrSeconds :prdTermination.getPRDBySecondOrPRDByTicks()) {
-            if(prdTicksOrSeconds instanceof PRDByTicks) {
+        for (Object prdTicksOrSeconds : prdTermination.getPRDBySecondOrPRDByTicks()) {
+            if (prdTicksOrSeconds instanceof PRDByTicks) {
                 Tick tick = new TickImpl(((PRDByTicks) prdTicksOrSeconds).getCount());
                 termination.setTicks(tick);
-            }
-            else if(prdTicksOrSeconds instanceof PRDBySecond) {
+            } else if (prdTicksOrSeconds instanceof PRDBySecond) {
                 Second second = new SecondImpl(((PRDBySecond) prdTicksOrSeconds).getCount());
                 termination.setSecondsToPast(second);
-            }
-            else {
+            } else {
                 throw new RuntimeException(prdTicksOrSeconds.toString() + "is of unexpected Class");
             }
         }
         createdWorld.setTermination(termination);
     }
+
     private void buildRulesFromPRD(PRDRules prdRules) {
         List<Rule> ruleList = new ArrayList<>();
         Action action;
         Rule currRule = null;
         Activation activation = null;
-        for (PRDRule prdRule: prdRules.getPRDRule()) {
+        for (PRDRule prdRule : prdRules.getPRDRule()) {
             String name = prdRule.getName();
             if (prdRule.getPRDActivation() != null) {
                 Integer ticks = prdRule.getPRDActivation().getTicks();
                 Double probability = prdRule.getPRDActivation().getProbability();
-                activation = new ActivationImpl(ticks,probability);
-            }
-            else {
+                activation = new ActivationImpl(ticks, probability);
+            } else {
                 activation = new ActivationImpl();
             }
             currRule = new RuleImpl(name, activation);
@@ -149,6 +159,7 @@ public class ReaderImpl implements Reader {
         }
         createdWorld.setRules(ruleList);
     }
+
     private Action buildActionFromPRD(PRDAction prdAction) {
         Action res;
         switch (prdAction.getType()) {
@@ -170,10 +181,11 @@ public class ReaderImpl implements Reader {
             case ("kill"):
                 res = createKillAction(prdAction);
                 break;
-            case("proximity"):
-                res = createProximityAction(prdAction);;
+            case ("proximity"):
+                res = createProximityAction(prdAction);
+                ;
                 break;
-            case("replace"):
+            case ("replace"):
                 res = createReplaceAction(prdAction);
                 break;
             default:
@@ -181,13 +193,15 @@ public class ReaderImpl implements Reader {
         }
         return res;
     }
+
     private Action createReplaceAction(PRDAction prdAction) {
         Action res = null;
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getKill());
         InteractiveEntity interactiveEntity = getInteractive(prdAction);
         EntityDefinition createEntity = createdWorld.getEntityDefinitionByName(prdAction.getCreate());
-        return new ReplaceAction(mainEntity,interactiveEntity,prdAction.getMode(), createEntity);
+        return new ReplaceAction(mainEntity, interactiveEntity, prdAction.getMode(), createEntity);
     }
+
     private Action createProximityAction(PRDAction prdAction) {
         Action res = null;
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getPRDBetween().getSourceEntity());
@@ -195,21 +209,22 @@ public class ReaderImpl implements Reader {
         InteractiveEntity interactiveEntity = getInteractive(prdAction);
         EntityDefinition targetEntity = createdWorld.getEntityDefinitionByName(prdAction.getPRDBetween().getTargetEntity());
         ArrayList<Action> actions = new ArrayList<>();
-        for (PRDAction prdProximityAction: prdAction.getPRDActions().getPRDAction()){
+        for (PRDAction prdProximityAction : prdAction.getPRDActions().getPRDAction()) {
             actions.add(buildActionFromPRD(prdProximityAction));
         }
-        return new ProximityAction(mainEntity,interactiveEntity,prdAction.getPRDEnvDepth().getOf(),createdWorld.getGrid().getColumns(),createdWorld.getGrid().getRows(),actions, targetEntity);
+        return new ProximityAction(mainEntity, interactiveEntity, prdAction.getPRDEnvDepth().getOf(), createdWorld.getGrid().getColumns(), createdWorld.getGrid().getRows(), actions, targetEntity);
     }
-    private InteractiveEntity getInteractive(PRDAction prdAction){
+
+    private InteractiveEntity getInteractive(PRDAction prdAction) {
         Condition conditionAction = null;
         InteractiveEntity interactiveEntity = null;
-        if (prdAction.getPRDSecondaryEntity() != null){
+        if (prdAction.getPRDSecondaryEntity() != null) {
             EntityDefinition secondEntity = createdWorld.getEntityDefinitionByName(prdAction.getPRDSecondaryEntity().getEntity());
             int count = Integer.parseInt(prdAction.getPRDSecondaryEntity().getPRDSelection().getCount());
-            if(prdAction.getPRDSecondaryEntity().getPRDSelection().getPRDCondition() != null) {
+            if (prdAction.getPRDSecondaryEntity().getPRDSelection().getPRDCondition() != null) {
                 conditionAction = createSubCondition(prdAction.getPRDSecondaryEntity().getPRDSelection().getPRDCondition());
             }
-            interactiveEntity = new InteractiveEntity(secondEntity,count,conditionAction);
+            interactiveEntity = new InteractiveEntity(secondEntity, count, conditionAction);
         }
         return interactiveEntity;
     }
@@ -217,42 +232,43 @@ public class ReaderImpl implements Reader {
     private Action createSetAction(PRDAction prdAction) {
         Action res = null;
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getEntity());
-        InteractiveEntity interactiveEntity= getInteractive(prdAction);
+        InteractiveEntity interactiveEntity = getInteractive(prdAction);
         String property = prdAction.getProperty();
         String value = prdAction.getValue();
-        res = new SetAction(mainEntity, interactiveEntity,property, value);
+        res = new SetAction(mainEntity, interactiveEntity, property, value);
         return res;
     }
+
     private Action createConditionAction(PRDAction prdAction) {
         ConditionAction res = null;
         Condition condition = null;
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getEntity());
-        InteractiveEntity interactiveEntity= getInteractive(prdAction);
+        InteractiveEntity interactiveEntity = getInteractive(prdAction);
         String singularity = prdAction.getPRDCondition().getSingularity();
         switch (singularity) {
             case "single":
-                EntityDefinition entity =  createdWorld.getEntityDefinitionByName(prdAction.getPRDCondition().getEntity());
+                EntityDefinition entity = createdWorld.getEntityDefinitionByName(prdAction.getPRDCondition().getEntity());
                 String property = prdAction.getPRDCondition().getProperty();
                 String value = prdAction.getPRDCondition().getValue();
                 String operator = prdAction.getPRDCondition().getOperator();
-                condition = new SingleCondition(entity, property,value,operator);
-                res = new ConditionAction(mainEntity,interactiveEntity,condition);
+                condition = new SingleCondition(entity, property, value, operator);
+                res = new ConditionAction(mainEntity, interactiveEntity, condition);
                 break;
             case "multiple":
                 String logical = prdAction.getPRDCondition().getLogical();
-                if(!logical.equals("or") && !logical.equals("and")){
+                if (!logical.equals("or") && !logical.equals("and")) {
                     throw new RuntimeException("invalid logical value");
                 }
                 MultipleCondition multipleCondition = new MultipleCondition(logical);
-                for (PRDCondition prdCondition: prdAction.getPRDCondition().getPRDCondition()){
+                for (PRDCondition prdCondition : prdAction.getPRDCondition().getPRDCondition()) {
                     multipleCondition.addCondition(createSubCondition(prdCondition));
                 }
-                res = new ConditionAction(mainEntity,interactiveEntity,multipleCondition);
+                res = new ConditionAction(mainEntity, interactiveEntity, multipleCondition);
                 break;
             default:
                 throw new IllegalArgumentException(singularity + "is not a valid Condition Singularity");
         }
-        for (PRDAction prdAction1: prdAction.getPRDThen().getPRDAction()){
+        for (PRDAction prdAction1 : prdAction.getPRDThen().getPRDAction()) {
             res.getThenActions().add(buildActionFromPRD(prdAction1));
         }
         if (prdAction.getPRDElse() != null) {
@@ -262,24 +278,25 @@ public class ReaderImpl implements Reader {
         }
         return res;
     }
+
     private Condition createSubCondition(PRDCondition prdCondition) {
         Condition res = null;
         String singularity = prdCondition.getSingularity();
         switch (singularity) {
             case "single":
-                EntityDefinition entity =  createdWorld.getEntityDefinitionByName(prdCondition.getEntity());
+                EntityDefinition entity = createdWorld.getEntityDefinitionByName(prdCondition.getEntity());
                 String property = prdCondition.getProperty();
                 String value = prdCondition.getValue();
                 String operator = prdCondition.getOperator();
-                res = new SingleCondition(entity, property,value,operator);
+                res = new SingleCondition(entity, property, value, operator);
                 break;
             case "multiple":
                 String logical = prdCondition.getLogical();
-                if(!logical.equals("or") && !logical.equals("and")){
+                if (!logical.equals("or") && !logical.equals("and")) {
                     throw new RuntimeException("invalid logical value");
                 }
                 MultipleCondition multipleCondition = new MultipleCondition(logical);
-                for (PRDCondition prdCondition1: prdCondition.getPRDCondition()){
+                for (PRDCondition prdCondition1 : prdCondition.getPRDCondition()) {
                     multipleCondition.addCondition(createSubCondition(prdCondition1));
                 }
                 res = multipleCondition;
@@ -289,14 +306,15 @@ public class ReaderImpl implements Reader {
         }
         return res;
     }
+
     private Action createcalCulationAction(PRDAction prdAction) {
         Action res = null;
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getEntity());
-        InteractiveEntity interactiveEntity= getInteractive(prdAction);
+        InteractiveEntity interactiveEntity = getInteractive(prdAction);
         String property = prdAction.getResultProp();
         String arg1 = null, arg2 = null;
         CalculationType calculationType = null;
-        if(prdAction.getPRDMultiply() != null) {
+        if (prdAction.getPRDMultiply() != null) {
             arg1 = prdAction.getPRDMultiply().getArg1();
             arg2 = prdAction.getPRDMultiply().getArg2();
             calculationType = CalculationType.MULTIPLY;
@@ -304,49 +322,52 @@ public class ReaderImpl implements Reader {
             arg1 = prdAction.getPRDDivide().getArg1();
             arg2 = prdAction.getPRDDivide().getArg2();
             calculationType = CalculationType.DIVIDE;
+        } else {
+            throw new IllegalArgumentException(prdAction + "is Calculation but illegal property" + prdAction.getPRDDivide().toString() + prdAction.getPRDMultiply().toString());
         }
-        else {
-            throw new IllegalArgumentException(prdAction + "is Calculation but illegal property" +prdAction.getPRDDivide().toString() +prdAction.getPRDMultiply().toString());
-        }
-        res = new CalculationAction(mainEntity,interactiveEntity, property, arg1, arg2, calculationType);
+        res = new CalculationAction(mainEntity, interactiveEntity, property, arg1, arg2, calculationType);
         return res;
     }
+
     private Action createKillAction(PRDAction prdAction) {
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getEntity());
-        InteractiveEntity interactiveEntity= getInteractive(prdAction);
-        return new KillAction(mainEntity,interactiveEntity);
+        InteractiveEntity interactiveEntity = getInteractive(prdAction);
+        return new KillAction(mainEntity, interactiveEntity);
     }
+
     private Action createIncreaseOrDecreaseAction(PRDAction prdAction, ActionType type) {
-        Action res = null ;
+        Action res = null;
         EntityDefinition mainEntity = createdWorld.getEntityDefinitionByName(prdAction.getEntity());
-        InteractiveEntity interactiveEntity= getInteractive(prdAction);
+        InteractiveEntity interactiveEntity = getInteractive(prdAction);
         String propertyName = prdAction.getProperty();
         String byExpression = prdAction.getBy();
-        if(type == ActionType.INCREASE) {
-            res = new IncreaseAction(mainEntity,interactiveEntity,propertyName,byExpression);
-        }
-        else if (type == ActionType.DECREASE) {
-            res = new DecreaseAction(mainEntity,interactiveEntity,propertyName,byExpression);
+        if (type == ActionType.INCREASE) {
+            res = new IncreaseAction(mainEntity, interactiveEntity, propertyName, byExpression);
+        } else if (type == ActionType.DECREASE) {
+            res = new DecreaseAction(mainEntity, interactiveEntity, propertyName, byExpression);
         }
         return res;
     }
+
     @Override
     public World getWorld() {
         return createdWorld;
     }
+
     @Override
     public void readEnvironmentPropertiesFromUser(Map<String, Object> propertyNameToValueAsString) {
-        for (Object value: propertyNameToValueAsString.values()){
+        for (Object value : propertyNameToValueAsString.values()) {
             createdWorld.getEnvVariablesManager();// TODO: 20/08/2023 delete?
         }
     }
+
 
     /**
      * this code is responsible for creating Property definition from the correct Type
      */
     private void buildEnvironmentFromPRD(PRDEnvironment prdEnvironment) {
         EnvVariablesManager envVariablesManager = new EnvVariablesManagerImpl();
-        for(PRDEnvProperty prdEnvProperty: prdEnvironment.getPRDEnvProperty()) {
+        for (PRDEnvProperty prdEnvProperty : prdEnvironment.getPRDEnvProperty()) {
             if (envVariablesManager.getEnvVariables().containsKey(prdEnvProperty.getPRDName())) {
                 throw new IllegalArgumentException(prdEnvProperty.getPRDName() + "is already exists in the simulation");
             }
@@ -369,55 +390,54 @@ public class ReaderImpl implements Reader {
         }
         createdWorld.setEnvVariablesManager(envVariablesManager);
     }
+
     private PropertyDefinition createStringPropertyDefinition(Object i_prdProperty) {
         PropertyDefinition res = null;
-        if( i_prdProperty instanceof PRDEnvProperty) {
+        if (i_prdProperty instanceof PRDEnvProperty) {
             PRDEnvProperty prdEnvProperty = (PRDEnvProperty) i_prdProperty;
             String name = prdEnvProperty.getPRDName();
             res = new StringPropertyDefinition(name, ValueGeneratorFactory.createRandomString());
-        }
-        else {
+        } else {
             if (i_prdProperty instanceof PRDProperty) {
                 PRDProperty prdProperty = (PRDProperty) i_prdProperty;
                 PRDValue prdValue = prdProperty.getPRDValue();
                 String name = prdProperty.getPRDName();
-                if(prdValue.isRandomInitialize()) {
+                if (prdValue.isRandomInitialize()) {
                     res = new StringPropertyDefinition(name, ValueGeneratorFactory.createRandomString());
-                }
-                else {
+                } else {
                     res = new StringPropertyDefinition(name, ValueGeneratorFactory.createFixed(prdValue.getInit()));
                 }
             }
         }
-        if(res == null) {
+        if (res == null) {
             throw new IllegalArgumentException(i_prdProperty.toString() + "is not expected type");
         }
         return res;
 
     }
+
     private PropertyDefinition createBooleanPropertyDefinition(Object i_prdProperty) {
         PropertyDefinition res = null;
-        if(i_prdProperty instanceof PRDEnvProperty) {
+        if (i_prdProperty instanceof PRDEnvProperty) {
             PRDEnvProperty prdEnvProperty = (PRDEnvProperty) i_prdProperty;
             String name = prdEnvProperty.getPRDName();
-            res = new BooleanPropertyDefinition(name,ValueGeneratorFactory.createRandomBoolean());
-        }
-        else if( i_prdProperty instanceof PRDProperty) {
+            res = new BooleanPropertyDefinition(name, ValueGeneratorFactory.createRandomBoolean());
+        } else if (i_prdProperty instanceof PRDProperty) {
             PRDProperty prdProperty = (PRDProperty) i_prdProperty;
             PRDValue prdValue = prdProperty.getPRDValue();
             String name = prdProperty.getPRDName();
-            if(prdValue.isRandomInitialize()) {
-                res = new BooleanPropertyDefinition(name,ValueGeneratorFactory.createRandomBoolean());
-            }
-            else {
-                res = new BooleanPropertyDefinition(name,ValueGeneratorFactory.createFixed(PropertyType.BOOLEAN.convert(prdValue.getInit())));
+            if (prdValue.isRandomInitialize()) {
+                res = new BooleanPropertyDefinition(name, ValueGeneratorFactory.createRandomBoolean());
+            } else {
+                res = new BooleanPropertyDefinition(name, ValueGeneratorFactory.createFixed(PropertyType.BOOLEAN.convert(prdValue.getInit())));
             }
         }
-        if(res == null) {
+        if (res == null) {
             throw new IllegalArgumentException(i_prdProperty.toString() + "is not expected type");
         }
         return res;
     }
+
     private PropertyDefinition createFloatPropertyDefinition(Object i_prdProperty) {
         PropertyDefinition res = null;
         try {
@@ -439,50 +459,49 @@ public class ReaderImpl implements Reader {
                     res = new FloatPropertyDefinition(name, ValueGeneratorFactory.createFixed(PropertyType.FLOAT.convert(prdValue.getInit())));
                 }
             }
-            if(res == null) {
+            if (res == null) {
                 throw new IllegalArgumentException(i_prdProperty.toString() + "is not expected type");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("something went wrong in createFloatPropertyDefinition");
         }
 
 
-
         return res;
     }
+
     private PropertyDefinition createDecimalPropertyDefinition(Object i_prdProperty) {
         PropertyDefinition res = null;
-        if(i_prdProperty instanceof PRDEnvProperty) {
+        if (i_prdProperty instanceof PRDEnvProperty) {
             PRDEnvProperty prdEnvProperty = (PRDEnvProperty) i_prdProperty;
             Integer from = PropertyType.DECIMAL.convert(prdEnvProperty.getPRDRange().getFrom());
             Integer to = PropertyType.DECIMAL.convert(prdEnvProperty.getPRDRange().getTo());
             String name = prdEnvProperty.getPRDName();
             res = new IntegerPropertyDefinition(name, ValueGeneratorFactory.createRandomInteger(from, to));
-        }
-        else if( i_prdProperty instanceof PRDProperty) {
+        } else if (i_prdProperty instanceof PRDProperty) {
             PRDProperty prdProperty = (PRDProperty) i_prdProperty;
             PRDValue prdValue = prdProperty.getPRDValue();
             String name = prdProperty.getPRDName();
             Integer from = PropertyType.DECIMAL.convert(prdProperty.getPRDRange().getFrom());
             Integer to = PropertyType.DECIMAL.convert(prdProperty.getPRDRange().getTo());
-            if(prdValue.isRandomInitialize()) {
-                res = new IntegerPropertyDefinition(name, ValueGeneratorFactory.createRandomInteger(from,to));
-            }
-            else {
+            if (prdValue.isRandomInitialize()) {
+                res = new IntegerPropertyDefinition(name, ValueGeneratorFactory.createRandomInteger(from, to));
+            } else {
                 res = new IntegerPropertyDefinition(name, ValueGeneratorFactory.createFixed(PropertyType.DECIMAL.convert(prdValue.getInit())));
             }
         }
-        if(res == null) {
+        if (res == null) {
             throw new IllegalArgumentException(i_prdProperty.toString() + "is not expected type");
         }
         return res;
     }
+
     /**
      * this code is responsible for creating the Entities from the PRD files
      */
     private void buildEntitiesFromPRD(PRDEntities prdEntities) {
         Map<String, EntityDefinition> entities = new HashMap<>();
-        for (PRDEntity prdEntity: prdEntities.getPRDEntity()){
+        for (PRDEntity prdEntity : prdEntities.getPRDEntity()) {
             EntityDefinition currEntity = new EntityDefinitionImpl(prdEntity.getName());
             for (PRDProperty prdProperty : prdEntity.getPRDProperties().getPRDProperty()) {
                 if (currEntity.getProps().contains(prdProperty)) {

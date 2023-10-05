@@ -14,8 +14,10 @@ public class Constants {
     public final static String BASE_DOMAIN = "localhost";
     public static final String MANAGEMENT_VIEW_URL ="/admin/component/body/management/managementView.fxml" ;
     private final static String BASE_URL = "http://" + BASE_DOMAIN + ":8080";
-    private final static String CONTEXT_PATH = "/predictionsApp";
+    private final static String CONTEXT_PATH = "/Server_Web_exploded";
+
     private final static String FULL_SERVER_PATH = BASE_URL + CONTEXT_PATH;
+    public final static String FILE_UPLOAD_URL = FULL_SERVER_PATH + "/admin/upload-file";
 
 
     // GSON instance
