@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class UserManager {
     private final Map<String,Object> usersData;
+    private Boolean isAdminLoggedIn = false;
     public UserManager() {
         this.usersData = new HashMap<>();
     }
@@ -18,4 +19,13 @@ public class UserManager {
         usersData.remove(username);
     }
 
+    public boolean isAdminLoggedIn() {
+        return isAdminLoggedIn;
+    }
+    public synchronized void adminLogin(){
+        this.isAdminLoggedIn = true;
+    }
+    public synchronized void adminLogout(){
+        this.isAdminLoggedIn = false;
+    }
 }

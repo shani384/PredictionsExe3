@@ -18,6 +18,7 @@ public class Constants {
 
     private final static String FULL_SERVER_PATH = BASE_URL + CONTEXT_PATH;
     public final static String FILE_UPLOAD_URL = FULL_SERVER_PATH + "/admin/upload-file";
+    public final static String LOGIN_ADMIN_URL = FULL_SERVER_PATH + "/admin/login";
 
 
     // GSON instance
