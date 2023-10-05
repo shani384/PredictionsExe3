@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="386.0" stylesheets="@proximityReplaceStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="component.body.detailspage.component.action.proximityreplace.ProximityReplaceDetailsController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="NEVER" maxWidth="89.0" minWidth="10.0" prefWidth="43.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="94.3333740234375" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="54.66668701171875" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.0" minWidth="10.0" prefWidth="91.3333740234375" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="78.0" minWidth="10.0" prefWidth="34.6666259765625" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="68.33331298828125" />
+      <ColumnConstraints hgrow="NEVER" maxWidth="86.0" minWidth="10.0" prefWidth="21.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="34.0" minHeight="10.0" prefHeight="14.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="40.66668701171875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="56.33331298828125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="18.0" vgrow="NEVER" />
+  </rowConstraints>
+   <children>
+      <Label id="main-label" fx:id="LabelActionType" alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="167.0" text="Proximity" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+      <Label fx:id="LabelKillOrSource" styleClass="category" text="Kill Entity:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="LabelCreateOrTarget" styleClass="category" text="Create Entity:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="LabelModeOrDepth" styleClass="category" text="Mode:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label styleClass="category" text="Actions:" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+      <ListView fx:id="ListViewActions" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="2" />
+      <Label fx:id="KillOrSource" prefHeight="27.0" prefWidth="113.0" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <Label fx:id="CreateOrTarget" prefHeight="27.0" prefWidth="123.0" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Label fx:id="ModeOrDepth" prefHeight="27.0" prefWidth="137.0" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+   </children>
+</GridPane>

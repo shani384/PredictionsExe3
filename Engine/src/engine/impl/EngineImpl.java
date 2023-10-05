@@ -23,6 +23,7 @@ public class EngineImpl implements Engine {
     private boolean isLoadedWorld = false;
     private final SimpleStringProperty fileName = new SimpleStringProperty();
     private final Reader myReader;
+    private Map<String,World> myWorlds;
     private World myWorld; // TODO: 19/08/2023 static?
     private Integer countId = 1;
     private final Map<Integer, SimulationOutcome> pastSimulations;
@@ -31,8 +32,8 @@ public class EngineImpl implements Engine {
     private Map<String, Object> propertyNameToValueAsString;
     private ExecutorService threadExecutor;
 
-    public World getWorld() {
-        return myWorld;
+    public Map<String, World> getWorlds() {
+        return myWorlds;
     }
 
     public EngineImpl() {
@@ -143,6 +144,16 @@ public class EngineImpl implements Engine {
     @Override
     public WorldDTO getWorldDTO() {
          return myWorld.createWorldDTO();
+    }
+    @Override
+    public Map<String,WorldDTO> getWorldsDTO(){
+        Map<String,WorldDTO> worldsDTO = new HashMap<>();
+        for (Map.Entry<String, World> entry : myWorlds.entrySet()) {
+            String name = entry.getKey();
+            WorldDTO worldDTO = entry.getValue().createWorldDTO();
+            worldsDTO.put(name, worldDTO);
+        }
+        return worldsDTO;
     }
 
     @Override

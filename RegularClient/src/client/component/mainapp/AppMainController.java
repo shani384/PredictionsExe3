@@ -1,5 +1,6 @@
 package client.component.mainapp;
 
+import client.component.body.simulationDetails.SimulationDetailsController;
 import client.component.header.HeaderController;
 import client.component.login.LoginPageController;
 import client.util.Constants;
@@ -26,10 +27,12 @@ public class AppMainController {
     @FXML private Parent headerComponent;
     @FXML
     private HeaderController headerComponentController;
+    private SimulationDetailsController simulationDetailsController;
 
 
    @FXML private BorderPane BorderPaneMain;
     private final StringProperty currentUserName;
+    private static final String Details_FXML_RESOURCE = "/client/component/body/simulationDetails/simulationDetailsView.fxml";
 
     public AppMainController() {
         currentUserName = new SimpleStringProperty("");
@@ -107,6 +110,19 @@ public class AppMainController {
     }
 
     public void switchToMainView() {
-
+    }
+    public void onDetailsChosen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            simulationDetailsController = loader.getController();
+            simulationDetailsController.requestWorldsDTO();
+            simulationDetailsController.worldsMenu();
+            dynamicGridPane.getChildren().clear();
+            dynamicGridPane.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            ////////////////////////////////////
+        }
     }
 }

@@ -26,8 +26,7 @@ public class HeaderController {
 
     @FXML
     private void onDetailsClicked(ActionEvent event) {
-        // Handle the "Simulation Details" button click here
-        // You can add code to show simulation details or perform other actions
+        appMainController.onDetailsChosen();
     }
 
     @FXML

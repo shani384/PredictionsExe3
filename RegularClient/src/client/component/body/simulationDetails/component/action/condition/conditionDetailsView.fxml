@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane hgap="5.0" prefHeight="305.0" prefWidth="271.0" stylesheets="@conditionStyle.css" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="component.body.detailspage.component.action.condition.ConditionDetailsController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="44.6666259765625" minWidth="10.0" prefWidth="24.0" />
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="128.66668701171875" minWidth="29.6666259765625" prefWidth="41.33331298828125" />
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="128.66668701171875" minWidth="17.66668701171875" prefWidth="33.3333740234375" />
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="128.66668701171875" minWidth="20.66668701171875" prefWidth="54.0" />
+      <ColumnConstraints hgrow="NEVER" maxWidth="257.66668701171875" minWidth="10.0" prefWidth="41.33331298828125" />
+      <ColumnConstraints hgrow="NEVER" maxWidth="257.66668701171875" minWidth="10.0" prefWidth="21.66668701171875" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="0.33331298828125" prefWidth="26.3333740234375" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="18.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="43.33331298828125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="43.33331298828125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="2.666656494140625" prefHeight="52.33331298828125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="45.66668701171875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="45.66668701171875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="45.66668701171875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="47.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="47.666656494140625" vgrow="NEVER" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="18.66668701171875" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label fx:id="LabelOpOrLogTitle" styleClass="category" text="Operator:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <Label fx:id="LabelPropertyTitle" styleClass="category" text="Property:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+      <Label styleClass="category" text="Main Entity:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Label fx:id="LabelProperty" prefHeight="17.0" prefWidth="92.0" styleClass="value" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <Label fx:id="LabelOpOrLog" styleClass="value" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <Label fx:id="LabelMainEntity" styleClass="value" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Label id="main-label" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="217.0" text=" Condition" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="1" />
+      <Label fx:id="LabelValueTitle" styleClass="category" text="Value:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <Label fx:id="LabelValue" prefHeight="17.0" prefWidth="67.0" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <Label styleClass="category" text="Type:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="LabelType" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <Label prefHeight="27.0" prefWidth="137.0" styleClass="category" text="Num Of Then Actions:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+      <Label styleClass="category" text="Num Of Else Actions:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+      <Label fx:id="LabelThen" styleClass="value" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Label fx:id="LabelElse" styleClass="value" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+   </children>
+</GridPane>
