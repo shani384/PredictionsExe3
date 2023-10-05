@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.component.body.management.simulationDetails.SimulationDetailsController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <SplitPane dividerPositions="0.4096989966555184" prefHeight="200.0" prefWidth="200.0" stylesheets="@/admin/component/body/centerStyle.css">
+            <items>
+                <TreeView fx:id="treeView" onContextMenuRequested="#showItem" onMouseClicked="#showItem" />
+                <FlowPane fx:id="details" />
+            </items>
+        </SplitPane>
+    </children>
+</GridPane>

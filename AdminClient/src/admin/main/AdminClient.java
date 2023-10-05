@@ -1,13 +1,12 @@
 package admin.main;
 
-import admin.component.mainapp.AppMainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import util.http.Constants;
-import util.http.HttpClientUtil;
+import admin.http.util.Constants;
+import admin.http.util.HttpClientUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +27,7 @@ public class AdminClient extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(url);
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 700, 600);
+            Scene scene = new Scene(root,750, 550);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {

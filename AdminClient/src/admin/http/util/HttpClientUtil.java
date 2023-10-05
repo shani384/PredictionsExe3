@@ -1,4 +1,4 @@
-package util.http;
+package admin.http.util;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 
 public class HttpClientUtil {
     private final static SimpleCookieManager simpleCookieManager = new SimpleCookieManager();
-    private final static OkHttpClient HTTP_CLIENT =
+    public final static OkHttpClient HTTP_CLIENT =
             new OkHttpClient.Builder()
                     .cookieJar(simpleCookieManager)
                     .followRedirects(false)

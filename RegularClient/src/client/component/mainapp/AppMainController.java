@@ -2,7 +2,7 @@ package client.component.mainapp;
 
 import client.component.header.HeaderController;
 import client.component.login.LoginPageController;
-import client.util.Constants;
+import client.http.util.Constants;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

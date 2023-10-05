@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.component.body.management.ManagementController">
+    <!-- File Path Section -->
+    <HBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+        <children>
+            <Label id="file-path-label" fx:id="LabelFilePath" minHeight="22.0" minWidth="216.0" prefHeight="22.0" prefWidth="216.0" style="-fx-background-color: magenta;" text="File Name" />
+            <Button fx:id="ButtonLoadFile" mnemonicParsing="false" onAction="#onClickLoadFile" prefHeight="21.0" prefWidth="100.0" styleClass="my-button" text="Load File" />
+        </children>
+    </HBox>
+
+    <!-- Set Threads Section -->
+    <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+   <VBox prefHeight="223.0" prefWidth="292.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="7">
+       <fx:include fx:id="simulationDetailsComponent" source="simulationDetails/simulationDetailsView.fxml" />
+       <GridPane.margin>
+         <Insets right="5.0" />
+      </GridPane.margin>
+   </VBox>
+   <VBox prefHeight="180.0" prefWidth="300.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="6">
+       <fx:include fx:id="threadPoolComponent" source="threadpool/queueManagementView.fxml" VBox.vgrow="SOMETIMES" />
+       <GridPane.margin>
+         <Insets left="5.0" />
+      </GridPane.margin>
+   </VBox>
+
+    <!-- Column Constraints -->
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" percentWidth="5.0" />
+        <ColumnConstraints fillWidth="false" hgrow="NEVER" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="NEVER" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="NEVER" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints fillWidth="false" hgrow="NEVER" minWidth="-Infinity" prefWidth="89.0" />
+        <ColumnConstraints hgrow="NEVER" percentWidth="5.0" />
+        <ColumnConstraints maxWidth="124.0" minWidth="51.0" prefWidth="115.0" />
+      <ColumnConstraints maxWidth="91.0" minWidth="10.0" prefWidth="27.0" />
+    </columnConstraints>
+
+    <!-- Row Constraints -->
+    <rowConstraints>
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+    </rowConstraints>
+</GridPane>

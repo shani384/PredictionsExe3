@@ -1,4 +1,4 @@
-package client.util;
+package client.http.util;
 
 import com.sun.istack.internal.NotNull;
 import okhttp3.Cookie;

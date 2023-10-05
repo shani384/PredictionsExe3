@@ -11,4 +11,6 @@ public interface Reader {
     World getWorld();
 
     void readEnvironmentPropertiesFromUser(Map<String, Object> propertyNameToValueAsString);
+
+    void readWorldFromStringBuilder(StringBuilder fileContent, String JAXB_XML_PACKAGE_NAME);
 }
