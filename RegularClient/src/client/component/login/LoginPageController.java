@@ -1,7 +1,7 @@
 package client.component.login;
 
-import client.util.Constants;
-import client.util.HttpClientUtil;
+import client.http.util.Constants;
+import client.http.util.HttpClientUtil;
 import com.sun.istack.internal.NotNull;
 import client.component.mainapp.AppMainController;
 import javafx.application.Platform;
@@ -20,6 +20,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.Response;
+
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
@@ -33,7 +34,7 @@ public class LoginPageController {
     private Button ButtonLogin;
     @FXML
     private Label errorMessageLabel;
-    //private ChatAppMainController chatAppMainController;
+
     private final StringProperty errorMessageProperty = new SimpleStringProperty();
     private AppMainController appMainController;
 
@@ -90,10 +91,10 @@ public class LoginPageController {
     private void openMainAppWindow(String userName) {
         try {
             // Load the main application FXML and controller
-            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("../mainapp/mainPanelView.fxml"));
+            FXMLLoader mainLoader = new FXMLLoader(getClass().getResource(Constants.MAIN_PAGE_FXML_RESOURCE_LOCATION));
             Parent mainRoot = mainLoader.load();
-            AppMainController appMainController = mainLoader.getController();
-            appMainController.updateUserName(userName);
+             this.appMainController = mainLoader.getController();
+            this.appMainController.updateUserName(userName);
             // Create a new scene with the main application view
             Scene mainScene = new Scene(mainRoot);
 
@@ -114,22 +115,8 @@ public class LoginPageController {
         }
     }
 
-
-    @FXML
-        private void userNameKeyTyped(KeyEvent event) {
-            errorMessageProperty.set("");
-        }
-
-        @FXML
-        private void quitButtonClicked(ActionEvent e) {
-            Platform.exit();
-        }
-
-//        private void updateHttpStatusLine(String data) {
-//            AppMainController.updateHttpLine(data);
-//        }
-
-        public void setAppMainController(AppMainController chatAppMainController) {
-            this.appMainController = chatAppMainController;
-        }
+    public void setAppMainController(AppMainController chatAppMainController) {
+        this.appMainController = chatAppMainController;
     }
+
+}

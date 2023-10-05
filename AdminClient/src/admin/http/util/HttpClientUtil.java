@@ -1,4 +1,4 @@
-package client.util;
+package admin.http.util;
 
 import okhttp3.Call;
 import okhttp3.Callback;
