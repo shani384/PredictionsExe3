@@ -24,7 +24,7 @@ public class EngineImpl implements Engine {
     private boolean isLoadedWorld = false;
     private final SimpleStringProperty fileName = new SimpleStringProperty();
     private final Reader myReader;
-    private Map<String,World> myWorlds;
+    private Map<String,World> myWorlds = new HashMap<>();
     private World myWorld; // TODO: 19/08/2023 static?
     private Integer countId = 1;
     private final Map<Integer, SimulationOutcome> pastSimulations;
@@ -55,93 +55,7 @@ public class EngineImpl implements Engine {
         threadExecutor.execute(runSimulation);
         return simulation.createSimulationOutcomeDTO();
     }
-//        threadExecutor.submit(() -> {
-//            for (PropertyDefinition envVarDefinition : myWorld.getEnvVariablesManager().getEnvVariables().values()) {
-//                String envName = envVarDefinition.getName();
-//                if (propertyNameToValueAsString.containsKey(envName)) {
-//                    Object value = envVarDefinition.getType().convert(propertyNameToValueAsString.get(envName));
-//                    simulation.getActiveEnvironment().addPropertyInstance(new PropertyInstanceImpl(envVarDefinition, value));
-//                } else {
-//                    simulation.getActiveEnvironment().addPropertyInstance(new PropertyInstanceImpl(envVarDefinition, envVarDefinition.generateValue()));
-//                }
-//            }
-//            // showFinalEnvProperties();
-//            // creating the instance manager
-//            for (EntityDefinition entityDefinition : myWorld.getNameToEntityDefinition().values()) {
-//                Double population = (Double) propertyNameToValueAsString.get(entityDefinition.getName() + "entity");
-//                entityDefinition.setPopulation(population.intValue());
-//                for (int i = 0; i < entityDefinition.getPopulation(); i++) {
-//                    simulation.getEntityInstanceManager().create(entityDefinition, myWorld.getGrid());
-//                }
-//            }
-//            simulation.getTermination().startTerminationClock();
-//            Map<Integer, SimulationOutcome> informationSimulation = new HashMap<>();
-//            // take a picture
-//            int ticks = 0;
-//            // TODO: 15/09/2023 setTicks
-////        simulationOutcome.getTermination()
-//            while (ticks < 2) {
-//                //!simulationOutcome.getTermination().isTerminated(ticks)) {
-//                simulation.
-//                        getEntityInstanceManager().
-//                        getInstances().
-//                        values().
-//                        forEach((entityInstance) -> myWorld.getGrid().moveEntity(entityInstance));
-//
-//                ArrayList<Action> activeActions = new ArrayList<>();
-//                for (Rule rule : myWorld.getRules()) {
-//                    if (rule.getActivation().isActive(ticks)) {
-//                        activeActions.addAll(rule.getActionToPreform());
-//                    }
-//                }
-//                for (EntityInstance entityInstance : simulation.getEntityInstanceManager().getInstances().values()) {
-//                    for (Action action : activeActions) {
-//                        if (action.getMainEntity().getName().equals(entityInstance.getEntityDefinition().getName())) { //if the action activate on the entity
-//                            if (action.getInteractiveEntity() != null) {
-//                                Context context = new ContextImpl(null, null, simulation.getEntityInstanceManager(), simulation.getActiveEnvironment(), myWorld.getGrid());
-//                                for (EntityInstance secondaryEntity : action.getSecondaryInstances(context)) {
-//                                    context = new ContextImpl(entityInstance, secondaryEntity, simulation.getEntityInstanceManager(), simulation.getActiveEnvironment(), myWorld.getGrid());
-//                                    action.invoke(context);
-//                                }
-//                            } else {
-//                                Context context = new ContextImpl(entityInstance, null, simulation.getEntityInstanceManager(), simulation.getActiveEnvironment(), myWorld.getGrid());
-//                                action.invoke(context);
-//                            }
-//                        }
-//                    }
-//                    for (PropertyInstance propertyInstance : entityInstance.getProperties().values()) {
-//                        if (propertyInstance.getValue().equals(propertyInstance.getOldValue())) {
-//                            propertyInstance.setTicksSameValue(propertyInstance.getTicksSameValue() + 1);
-//                        } else {
-//                            propertyInstance.setOldValue(propertyInstance.getValue());
-//                            propertyInstance.setTicksSameValue(0);
-//                        }
-//                    }
-//                }
-//                simulation.getEntityInstanceManager().killEntities();
-//                ticks++;
-//
-//
-//            }
-//        });
-//        return simulation.createSimulationOutcomeDTO();
-//    }
-//
 
-
-        //SimulationOutcome currSimulation = myWorld.runSimulation(propertyNameToValueAsString,countId);
-        //engine.setCountId(engine.getCountId() + 1);
-        //engine.getPastSimulations().put(engine.getCountId(), currSimulation);
-//        for(){
-//
-//        }
-//        //Date currentDate = new Date();
-//        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy | HH.mm.ss");
-//        SimulationOutcome currSimulation = myWorld.runSimulation(propertyNameToValueAsString,countId);
-//        //String formattedDate = dateFormat.format(currentDate);
-//        //SimulationOutcome currSimulation = new SimulationOutcome(formattedDate,countId, myWorld.getTermination(),currSimulationInstances);
-//        pastSimulations.put(countId++, currSimulation);
-//        return currSimulation.createSimulationOutcomeDTO();
 
     @Override
     public WorldDTO getWorldDTO() {
@@ -186,11 +100,10 @@ public class EngineImpl implements Engine {
     }
 
     @Override
-    public void readWorldWithServer(StringBuilder fileContent){
+    public void readWorldWithServer(String fileName, StringBuilder fileContent){
         myReader.readWorldFromStringBuilder(fileContent, JAXB_XML_PACKAGE_NAME);
-        myWorld = myReader.getWorld();
+        myWorlds.put(fileName, myReader.getWorld());
         isLoadedWorld = true;
-
     }
 
     @Override

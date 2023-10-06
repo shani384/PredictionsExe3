@@ -30,14 +30,15 @@ public class FileUpload extends HttpServlet {
         out.println("Total parts : " + parts.size());
 
         StringBuilder fileContent = new StringBuilder();
-
+        String fileName = "filename";
         for (Part part : parts) {
             printPart(part, out);
             //to write the content of the file to a string
             fileContent.append(readFromInputStream(part.getInputStream()));
+            fileName = getFilename(part);
         }
         Engine engine = ServletUtils.getEngine(getServletContext());
-        engine.readWorldWithServer(fileContent);
+        engine.readWorldWithServer(fileName, fileContent);
         printFileContent(fileContent.toString(), out);
     }
 
@@ -48,6 +49,15 @@ public class FileUpload extends HttpServlet {
         }
 
         out.println(sb.toString());
+    }
+    private String getFilename(Part part) {
+        // Extract the filename from the part's content-disposition header
+        for (String header : part.getHeader("content-disposition").split(";")) {
+            if (header.trim().startsWith("filename")) {
+                return header.substring(header.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null; // If filename is not found
     }
 
     private String readFromInputStream(InputStream inputStream) {

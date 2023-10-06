@@ -15,7 +15,7 @@ public interface Engine {
     SimulationOutcomeDTO runNewSimulation(Map<String, Object> propertyNameToValueAsString);
     void readWorldFromXml();
 
-    void readWorldWithServer(StringBuilder fileContent);
+    void readWorldWithServer(String fileName, StringBuilder fileContent);
 
     void readWorldFromXml(String XML_PATH, String JAXB_XML_PACKAGE_NAME);
     WorldDTO getWorldDTO();
