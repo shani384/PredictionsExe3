@@ -2,6 +2,8 @@ package admin.http.util;
 
 import com.google.gson.Gson;
 
+import java.net.URL;
+
 public class Constants {
     // global constants
     public final static String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -17,7 +19,10 @@ public class Constants {
     private final static String CONTEXT_PATH = "/Server_Web_exploded";
 
     private final static String FULL_SERVER_PATH = BASE_URL + CONTEXT_PATH;
+    public static final String UPDATE_THREADPOOL_SIZE_URL = FULL_SERVER_PATH + "/admin/update_threads_size";
+    public static final String GET_THREAD_INFO_URL = FULL_SERVER_PATH + "/admin/get_threads_info";
     public final static String FILE_UPLOAD_URL = FULL_SERVER_PATH + "/admin/upload-file";
+    public final static String LOGIN_ADMIN_URL = FULL_SERVER_PATH + "/admin/login";
 
 
     // GSON instance
