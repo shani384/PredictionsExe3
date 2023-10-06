@@ -21,7 +21,7 @@
          <Insets right="5.0" />
       </GridPane.margin>
    </VBox>
-   <VBox prefHeight="180.0" prefWidth="300.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="6">
+   <VBox fx:id="queueManagement" prefHeight="180.0" prefWidth="300.0" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="6">
        <fx:include fx:id="threadPoolComponent" source="threadpool/queueManagementView.fxml" VBox.vgrow="SOMETIMES" />
        <GridPane.margin>
          <Insets left="5.0" />
