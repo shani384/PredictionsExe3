@@ -6,7 +6,6 @@ public class ConditionActionDTO extends ActionDTO{
 
     private final int numOfThenActions;
     private final int numOfElseActions;
-
     ConditionDTO conditionDTO;
     public ConditionActionDTO(String actionType, EntityDefinitionDTO mainEntity, ConditionDTO conditionDTO, int numOfThenActions, int numOfElseActions) {
         super(actionType, mainEntity);

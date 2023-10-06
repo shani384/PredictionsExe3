@@ -1,6 +1,9 @@
-package client.util;
+package client.http.util;
 
+import DTOManager.impl.actionDTO.ActionDTO;
+import DTOManager.impl.actionDTO.ActionDTODeserializer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Constants {
     // global constants
@@ -36,5 +39,7 @@ public class Constants {
     public final static String CHAT_LINES_LIST = FULL_SERVER_PATH + "/chat";
 
     // GSON instance
-    public final static Gson GSON_INSTANCE = new Gson();
+    public final static Gson GSON_INSTANCE = new GsonBuilder()
+            .registerTypeAdapter(ActionDTO.class,new ActionDTODeserializer())
+            .create();
 }

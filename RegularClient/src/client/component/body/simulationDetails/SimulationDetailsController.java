@@ -13,8 +13,8 @@ import client.component.body.simulationDetails.component.action.setkill.SetKillD
 import client.component.body.simulationDetails.component.entity.EntityDetailsController;
 import client.component.body.simulationDetails.component.property.PropertyDetailsController;
 import client.component.body.simulationDetails.component.rule.RuleDetailsController;
-import client.util.Constants;
-import client.util.HttpClientUtil;
+import client.http.util.Constants;
+import client.http.util.HttpClientUtil;
 import com.google.gson.Gson;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,6 +32,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
+
+import static client.http.util.Constants.GSON_INSTANCE;
 
 public class SimulationDetailsController {
 
@@ -261,8 +263,7 @@ public class SimulationDetailsController {
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                             assert response.body() != null;
                             String jsonMapOfWorlds = response.body().string();
-                            Gson gson = new Gson();
-                            String[] worldsDTO = gson.fromJson(jsonMapOfWorlds,null);////////////////////
+                            WorldDTO worldsDTO = GSON_INSTANCE.fromJson(jsonMapOfWorlds, WorldDTO.class);
 
                         }
                 });
