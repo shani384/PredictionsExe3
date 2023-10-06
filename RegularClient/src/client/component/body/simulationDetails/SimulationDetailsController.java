@@ -31,6 +31,7 @@ import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import static client.http.util.Constants.GSON_INSTANCE;
@@ -46,8 +47,9 @@ public class SimulationDetailsController {
         @FXML
         private FlowPane details;
         private Map<String, WorldDTO>  worldDTOMap;
-
-        public void setWorlds(Object worldsDTO) {
+        @FXML
+        private void initialize(){
+             worldDTOMap = new HashMap<>();
         }
 
         public void worldsMenu() {
@@ -264,6 +266,7 @@ public class SimulationDetailsController {
                             assert response.body() != null;
                             String jsonMapOfWorlds = response.body().string();
                             WorldDTO worldsDTO = GSON_INSTANCE.fromJson(jsonMapOfWorlds, WorldDTO.class);
+                            worldDTOMap.put("1",worldsDTO);////////////////
 
                         }
                 });
