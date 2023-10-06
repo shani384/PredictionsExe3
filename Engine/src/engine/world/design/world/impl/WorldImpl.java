@@ -80,13 +80,13 @@ public class WorldImpl implements World {
         for (Rule rule:rules){
             rulesDTO.add(rule.createRuleDTO());
         }
-        TerminationDTO terminationDTO = termination.createTerminationDTO();
+//        TerminationDTO terminationDTO = termination.createTerminationDTO();
         List<PropertyDefinitionDTO> envPropertiesDefinitionDTO = new ArrayList<>();
         for (PropertyDefinition propertyDefinition : envVariablesManager.getEnvVariables().values()){
             envPropertiesDefinitionDTO.add(propertyDefinition.createPropertyDefinitionDTO());
         }
         GridDTO gridDTO = grid.createGridDTO();
-        return new WorldDTO(entityDefinitionDTOMap,rulesDTO,terminationDTO,envPropertiesDefinitionDTO, gridDTO);
+        return new WorldDTO(entityDefinitionDTOMap,rulesDTO,null ,envPropertiesDefinitionDTO, gridDTO);
     }
     @Override
     public Grid getGrid() {
