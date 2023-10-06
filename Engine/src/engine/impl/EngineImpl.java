@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class EngineImpl implements Engine {
     private static final String JAXB_XML_PACKAGE_NAME = "schema.generated";
+    private static final int INITIAL_THREAD_POOL = 3;
     private boolean isLoadedWorld = false;
     private final SimpleStringProperty fileName = new SimpleStringProperty();
     private final Reader myReader;
@@ -29,7 +30,8 @@ public class EngineImpl implements Engine {
 
     private final Map<Integer, RunSimulation> simulationThreads = new HashMap<>();
     private Map<String, Object> propertyNameToValueAsString;
-    private ExecutorService threadExecutor;
+    private ExecutorService threadExecutor = Executors.newFixedThreadPool(INITIAL_THREAD_POOL);
+
 
     public World getWorld() {
         return myWorld;
@@ -168,7 +170,7 @@ public class EngineImpl implements Engine {
         myReader.readWorldFromXml(fileName.get(), JAXB_XML_PACKAGE_NAME);
         myWorld = myReader.getWorld();
         isLoadedWorld = true;
-        threadExecutor = Executors.newFixedThreadPool(myWorld.getNumOfThreads());
+                threadExecutor = Executors.newFixedThreadPool(myWorld.getNumOfThreads());
         //threadExecutor = Executors.newFixedThreadPool(1);
     }
 
@@ -177,6 +179,7 @@ public class EngineImpl implements Engine {
         myReader.readWorldFromStringBuilder(fileContent, JAXB_XML_PACKAGE_NAME);
         myWorld = myReader.getWorld();
         isLoadedWorld = true;
+
     }
 
     @Override
@@ -240,5 +243,10 @@ public class EngineImpl implements Engine {
     @Override
     public void pauseSimulationByID(int id){
         simulationThreads.get(id).pauseThread();
+    }
+
+    @Override
+    public void setThreadPoolSize(int newThreadPoolSize) {
+        this.threadExecutor = Executors.newFixedThreadPool(newThreadPoolSize);
     }
 }

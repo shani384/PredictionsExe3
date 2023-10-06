@@ -104,5 +104,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="Engine" />
+    <orderEntry type="module" module-name="DTOManager" />
   </component>
 </module>

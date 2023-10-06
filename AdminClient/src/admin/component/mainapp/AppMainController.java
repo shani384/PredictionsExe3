@@ -102,6 +102,7 @@ public class AppMainController {
             managementController = loader.getController();
             managementController.setMainController(this);
             managementController.loadDataFromServer();
+            managementController.getThreadInfo();
             dynamicGridPane.getChildren().clear();
             dynamicGridPane.getChildren().add(detailsBox);
         } catch (IOException e) {

@@ -36,5 +36,7 @@ public interface Engine {
     public void stopSimulationByID(int id);
     public void resumeSimulationByID(int id);
     public void pauseSimulationByID(int id);
+
+    void setThreadPoolSize(int newThreadPoolSize);
     // TODO: 10/08/2023 SimulationOutComeDTO getSimulationOutComeDTO();
 }

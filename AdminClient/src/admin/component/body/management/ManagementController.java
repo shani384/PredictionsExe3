@@ -1,5 +1,6 @@
 package admin.component.body.management;
 
+import admin.component.body.management.threadpool.QueueManagementView;
 import admin.component.mainapp.AppMainController;
 import admin.utils.inputFields.LabelTextBox;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -16,7 +18,11 @@ import java.io.IOException;
 
 public class ManagementController {
 
+    @FXML private VBox queueManagement;
+
+    @FXML private QueueManagementView threadPoolComponentController;
     private AppMainController appMainController;
+
     private SimpleStringProperty filePath;
 
     private Stage primaryStage;
@@ -31,8 +37,11 @@ public class ManagementController {
     @FXML
     public void initialize() {
         LabelFilePath.textProperty().bind(filePath);
-
+        if (threadPoolComponentController != null){
+            threadPoolComponentController.updateThreadInfo();
+        }
     }
+
     @FXML
     private void onClickLoadFile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -64,5 +73,9 @@ public class ManagementController {
     }
     public String getFilePath(){
         return filePath.get();
+    }
+
+    public void getThreadInfo() {
+
     }
 }

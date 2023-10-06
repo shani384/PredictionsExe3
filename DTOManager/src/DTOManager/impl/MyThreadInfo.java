@@ -8,10 +8,6 @@ public class MyThreadInfo {
 
     private int finishedThread;
 
-    public int getThreadPoolSize() {
-        return threadPoolSize;
-    }
-
     private int threadPoolSize;
 
     public MyThreadInfo(int queueSize, int workingThreads, int finishedThread, int threadPoolSize) {
@@ -19,6 +15,10 @@ public class MyThreadInfo {
         this.workingThreads = workingThreads;
         this.finishedThread = finishedThread;
         this.threadPoolSize = threadPoolSize;
+    }
+
+    public int getThreadPoolSize() {
+        return threadPoolSize;
     }
 
     public int getQueueSize() {
