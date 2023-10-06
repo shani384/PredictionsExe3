@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane hgap="5.0" prefHeight="300.0" prefWidth="292.0" stylesheets="@ruleStyle.css" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="component.body.detailspage.component.rule.RuleDetailsController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="44.6666259765625" minWidth="10.0" prefWidth="24.0" />
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="146.6666259765625" minWidth="30.6666259765625" prefWidth="56.66668701171875" />
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="146.6666259765625" minWidth="6.66668701171875" prefWidth="59.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.66668701171875" minWidth="2.6666259765625" prefWidth="33.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.66668701171875" minWidth="10.0" prefWidth="43.3333740234375" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="0.33331298828125" prefWidth="46.6666259765625" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="18.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="43.33331298828125" vgrow="NEVER" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="2.666656494140625" prefHeight="36.33331298828125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="38.66668701171875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="35.333343505859375" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="32.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="47.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="18.66668701171875" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label id="main-label" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="174.0" stylesheets="@ruleStyle.css" text="Rule" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Label styleClass="category" text="Ticks To Terminate:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Label styleClass="category" stylesheets="@ruleStyle.css" text="Name:" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+      <Label styleClass="category" text="Probability To Terminate:" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+      <Label fx:id="LabelRuleName" prefHeight="27.0" prefWidth="101.0" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <Label fx:id="LabelTicks" styleClass="value" text="Label" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <ListView fx:id="ListViewActions" prefHeight="74.0" prefWidth="152.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="2" />
+      <Label styleClass="category" text="Actions:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+      <Label fx:id="LabelProbability" styleClass="value" text="Label" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+   </children>
+</GridPane>

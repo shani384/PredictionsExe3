@@ -21,6 +21,7 @@ public interface Engine {
     WorldDTO getWorldDTO();
 
     MyThreadInfo getThreadPoolInfo();
+    public Map<String,WorldDTO> getWorldsDTO();
 
     SimulationOutcomeDTO getPastSimulationDTO(int wantedSimulationNumber);
 

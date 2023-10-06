@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane hgap="5.0" prefHeight="223.0" prefWidth="424.0" stylesheets="@propertyStyle.css" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="component.body.detailspage.component.property.PropertyDetailsController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="44.6666259765625" minWidth="10.0" prefWidth="24.0" />
+      <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="82.33331298828125" minWidth="30.33331298828125" prefWidth="78.33331298828125" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.66668701171875" minWidth="10.0" prefWidth="233.66668701171875" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.66668701171875" minWidth="10.0" prefWidth="32.6666259765625" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="0.33331298828125" prefWidth="26.3333740234375" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="18.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="43.33331298828125" vgrow="NEVER" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="2.666656494140625" prefHeight="38.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.3333282470703" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="47.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="47.666656494140625" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="223.6666717529297" minHeight="10.0" prefHeight="18.66668701171875" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label id="main-label" fx:id="LabelPropertyTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="310.0" text="Envaironment variable " GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Label id="category" styleClass="category" text="Type:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label id="category" styleClass="category" text="Name:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label id="category" fx:id="LabelRangeOrInit" prefHeight="27.0" prefWidth="74.0" styleClass="category" text="Range:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label id="value" fx:id="LabelPropertyName" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label id="value" fx:id="LabelPropertyType" styleClass="value" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label id="value" fx:id="LabelPropertyRange" styleClass="value" stylesheets="@propertyStyle.css" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <Label fx:id="LabelIsRandom" prefHeight="17.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+   </children>
+</GridPane>

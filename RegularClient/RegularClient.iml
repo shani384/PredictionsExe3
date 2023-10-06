@@ -41,5 +41,6 @@
         <jarDirectory url="jar://$MODULE_DIR$/../gson-2.8.8-javadoc.jar!/" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="DTOManager" />
   </component>
 </module>

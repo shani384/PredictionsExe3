@@ -1,0 +1,32 @@
+/* GridPane Style */
+.grid-pane {
+    -fx-background-color: #f0f5f9; /* Light Blue */
+    -fx-border-color: #92b6d4; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-padding: 10px; /* Padding around the GridPane */
+}
+
+/* Labels Style */
+.label.category {
+    -fx-text-fill: #515a80; /* Black text color */
+    -fx-font-weight: bold; /* Bold font */
+    -fx-border-width: 1px; /* Border width */
+    -fx-padding: 5px; /* Padding around labels */
+}
+
+.label.value {
+    -fx-text-fill: #000000; /* Black text color */
+    -fx-font-weight: normal; /* Normal font weight */
+    -fx-border-width: 1px; /* Border width */
+    -fx-padding: 5px; /* Padding around labels */
+}
+
+/* Main Label Style */
+#main-label {
+    -fx-font-size: 24px; /* Font size */
+    -fx-font-weight: bold; /* Bold font weight */
+    -fx-text-fill: #515a80; /* White text color */
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-padding: 10px; /* Padding around the label */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0); /* Shadow effect */
+}

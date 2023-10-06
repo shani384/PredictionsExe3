@@ -1,6 +1,9 @@
 package admin.http.util;
 
+import DTOManager.impl.actionDTO.ActionDTO;
+import DTOManager.impl.actionDTO.ActionDTODeserializer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.net.URL;
 
@@ -26,5 +29,7 @@ public class Constants {
 
 
     // GSON instance
-    public final static Gson GSON_INSTANCE = new Gson();
+    public final static Gson GSON_INSTANCE = new GsonBuilder()
+            .registerTypeAdapter(ActionDTO.class,new ActionDTODeserializer())
+            .create();
 }
