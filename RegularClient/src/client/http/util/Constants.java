@@ -40,6 +40,6 @@ public class Constants {
 
     // GSON instance
     public final static Gson GSON_INSTANCE = new GsonBuilder()
-            .registerTypeAdapter(ActionDTO.class,new ActionDTODeserializer())
+            .registerTypeAdapter(ActionDTO.class, new ActionDTODeserializer())
             .create();
 }

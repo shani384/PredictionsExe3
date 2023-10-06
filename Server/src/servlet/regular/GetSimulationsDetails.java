@@ -20,9 +20,12 @@ public class GetSimulationsDetails extends HttpServlet {
         try (PrintWriter out = response.getWriter()){
             Engine engine = ServletUtils.getEngine(getServletContext());
             Map<String, WorldDTO> worldsDTO = engine.getWorldsDTO();
-            String json = ServletUtils.getGson(getServletContext()).toJson(worldsDTO);
+            String json = ServletUtils.getGson(getServletContext()).toJson(worldsDTO.get("master-ex3"));
             out.println(json);
             out.flush();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 

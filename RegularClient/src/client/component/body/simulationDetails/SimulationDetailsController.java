@@ -258,16 +258,15 @@ public class SimulationDetailsController {
                 HttpClientUtil.runAsync(Constants.SIMULATION_DETAILS, new Callback() {
                         @Override
                         public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                                System.out.println(e.getMessage());
                         }
 
                         @Override
                         public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                             assert response.body() != null;
                             String jsonMapOfWorlds = response.body().string();
-                            WorldDTO worldsDTO = GSON_INSTANCE.fromJson(jsonMapOfWorlds, WorldDTO.class);
-                            worldDTOMap.put("1",worldsDTO);////////////////
-
+                            WorldDTO worldDTO = GSON_INSTANCE.fromJson(jsonMapOfWorlds, WorldDTO.class);
+                            worldDTOMap.put("1",worldDTO);////////////////
                         }
                 });
 
