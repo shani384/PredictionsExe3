@@ -40,6 +40,7 @@ public class FileUpload extends HttpServlet {
         Engine engine = ServletUtils.getEngine(getServletContext());
         engine.readWorldWithServer(fileName, fileContent);
         printFileContent(fileContent.toString(), out);
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     private void printPart(Part part, PrintWriter out) {
@@ -53,8 +54,8 @@ public class FileUpload extends HttpServlet {
     private String getFilename(Part part) {
         // Extract the filename from the part's content-disposition header
         for (String header : part.getHeader("content-disposition").split(";")) {
-            if (header.trim().startsWith("filename")) {
-                return header.substring(header.indexOf('=') + 1).trim().replace("\"", "");
+            if (header.trim().contains("filename")) {
+                return header.substring(header.indexOf('=') + 1).trim().replace("\"", "").replace(".xml", "");
             }
         }
         return null; // If filename is not found
