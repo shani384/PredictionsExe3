@@ -112,165 +112,167 @@ public class SimulationDetailsController {
                 }
         }
 
-        private void loadAction(TreeItem<String> item, WorldDTO world) {
-                ObservableList<TreeItem<String>> children = item.getParent().getChildren();
-                int index = children.indexOf(item);
-                RuleDTO ruleDTO = world.getRuleDTOByName(item.getParent().getValue());
-                ActionDTO actionDTO = ruleDTO.getActionByIndex(index);
-                if(actionDTO instanceof IncreaseDTO || actionDTO instanceof DecreaseDTO) {
-                        loadIncreaseDecrease(actionDTO);
-                } else if (actionDTO instanceof CalculationDTO) {
-                        loadCalculation((CalculationDTO) actionDTO);
-                }else if (actionDTO instanceof KillDTO || actionDTO instanceof SetDTO) {
-                        loadSetKill(actionDTO);
-                } else if (actionDTO instanceof ConditionActionDTO) {
-                        loadCondition((ConditionActionDTO)actionDTO);
-                }else if(actionDTO instanceof ProximityDTO || actionDTO instanceof ReplaceDTO){
-                        loadProximityReplace(actionDTO);
-                }
-
+    private void loadAction(TreeItem<String> item, WorldDTO world) {
+        ObservableList<TreeItem<String>> children = item.getParent().getChildren();
+        int index = children.indexOf(item);
+        RuleDTO ruleDTO = world.getRuleDTOByName(item.getParent().getValue());
+        ActionDTO actionDTO = ruleDTO.getActionByIndex(index);
+        if (actionDTO instanceof IncreaseDTO || actionDTO instanceof DecreaseDTO) {
+            loadIncreaseDecrease(actionDTO);
+        } else if (actionDTO instanceof CalculationDTO) {
+            loadCalculation((CalculationDTO) actionDTO);
+        } else if (actionDTO instanceof KillDTO || actionDTO instanceof SetDTO) {
+            loadSetKill(actionDTO);
+        } else if (actionDTO instanceof ConditionActionDTO) {
+            loadCondition((ConditionActionDTO) actionDTO);
+        } else if (actionDTO instanceof ProximityDTO || actionDTO instanceof ReplaceDTO) {
+            loadProximityReplace(actionDTO);
         }
 
-        private void loadProximityReplace(ActionDTO actionDTO) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.ProximityReplace_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        ProximityReplaceDetailsController proximityReplaceDetailsController = loader.getController();
-                        proximityReplaceDetailsController.setProximityReplaceDetails(actionDTO);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
+    }
+
+    private void loadProximityReplace(ActionDTO actionDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.ProximityReplace_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            ProximityReplaceDetailsController proximityReplaceDetailsController = loader.getController();
+            proximityReplaceDetailsController.setProximityReplaceDetails(actionDTO);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCondition(ConditionActionDTO conditionActionDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.Condition_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            ConditionDetailsController conditionDetailsController = loader.getController();
+            conditionDetailsController.setConditionDetails(conditionActionDTO);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadSetKill(ActionDTO actionDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.SetKill_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            SetKillDetailsController setKillDetailsController = loader.getController();
+            setKillDetailsController.setSetKillDetails(actionDTO);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCalculation(CalculationDTO calculationDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.Calculation_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            CalculationDetailsController calculationDetailsController = loader.getController();
+            calculationDetailsController.setCalculationDetails(calculationDTO);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadIncreaseDecrease(ActionDTO actionDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.IncreaseDecrease_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            IncreaseDecreaseDetailsController increaseDecreaseDetailsController = loader.getController();
+            increaseDecreaseDetailsController.setIncreaseDecreaseDetails(actionDTO);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadEntity(TreeItem<String> item, WorldDTO world) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.Entity_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            EntityDetailsController entityDetailsController = loader.getController();
+            entityDetailsController.setWorld(world);
+            entityDetailsController.setEntityDetails(item);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void loadRule(TreeItem<String> item, WorldDTO world) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.Rule_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            RuleDetailsController ruleDetailsController = loader.getController();
+            ruleDetailsController.setWorld(world);
+            ruleDetailsController.setRuleDetails(item);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadProperty(TreeItem<String> item, WorldDTO world) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(Constants.Property_Details_FXML_RESOURCE));
+            GridPane detailsBox = loader.load();
+            PropertyDetailsController propertyDetailsController = loader.getController();
+            propertyDetailsController.setWorld(world);
+            propertyDetailsController.setPropertyDetails(item);
+            details.getChildren().clear();
+            details.getChildren().add(detailsBox);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        private void loadCondition(ConditionActionDTO conditionActionDTO) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.Condition_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        ConditionDetailsController conditionDetailsController = loader.getController();
-                        conditionDetailsController.setConditionDetails(conditionActionDTO);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
+    }
+
+    @FXML
+    public void showItem(MouseEvent mouseEvent) {
+        TreeItem<String> item = treeView.getSelectionModel().getSelectedItem();
+        if (item != null && item.getValue() != null) {
+            loadItem(item);
         }
+    }
 
-        private void loadSetKill(ActionDTO actionDTO) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.SetKill_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        SetKillDetailsController setKillDetailsController = loader.getController();
-                        setKillDetailsController.setSetKillDetails(actionDTO);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
+    public void requestWorldsDTO() {
+        HttpClientUtil.runAsync(Constants.SIMULATION_DETAILS, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                System.out.println(e.getMessage());
+            }
 
-        private void loadCalculation(CalculationDTO calculationDTO) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.Calculation_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        CalculationDetailsController calculationDetailsController = loader.getController();
-                        calculationDetailsController.setCalculationDetails(calculationDTO);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                assert response.body() != null;
+                String jsonMapOfWorlds = response.body().string();
+                WorldDTO worldDTO = GSON_INSTANCE.fromJson(jsonMapOfWorlds, WorldDTO.class);
+                worldDTOMap.put("1", worldDTO);////////////////
+            }
+        });
 
-        private void loadIncreaseDecrease(ActionDTO actionDTO) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.IncreaseDecrease_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        IncreaseDecreaseDetailsController increaseDecreaseDetailsController = loader.getController();
-                        increaseDecreaseDetailsController.setIncreaseDecreaseDetails(actionDTO);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
-
-        private void loadEntity(TreeItem<String> item,WorldDTO world) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.Entity_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        EntityDetailsController entityDetailsController= loader.getController();
-                        entityDetailsController.setWorld(world);
-                        entityDetailsController.setEntityDetails(item);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
-
-
-        private void loadRule(TreeItem<String> item,WorldDTO world) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.Rule_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        RuleDetailsController ruleDetailsController= loader.getController();
-                        ruleDetailsController.setWorld(world);
-                        ruleDetailsController.setRuleDetails(item);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-        }
-
-        private void loadProperty(TreeItem<String> item, WorldDTO world) {
-                try {
-                        FXMLLoader loader = new FXMLLoader();
-                        loader.setLocation(getClass().getResource(Constants.Property_Details_FXML_RESOURCE));
-                        GridPane detailsBox = loader.load();
-                        PropertyDetailsController propertyDetailsController= loader.getController();
-                        propertyDetailsController.setWorld(world);
-                        propertyDetailsController.setPropertyDetails(item);
-                        details.getChildren().clear();
-                        details.getChildren().add(detailsBox);
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-
-        }
-        @FXML
-        public void showItem(MouseEvent mouseEvent) {
-                TreeItem<String> item = treeView.getSelectionModel().getSelectedItem();
-                if (item != null && item.getValue() != null) {
-                        loadItem(item);
-                }
-        }
-        public void requestWorldsDTO() {
-                HttpClientUtil.runAsync(Constants.SIMULATION_DETAILS, new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                System.out.println(e.getMessage());
-                        }
-
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            assert response.body() != null;
-                            String jsonMapOfWorlds = response.body().string();
-                            WorldDTO worldDTO = GSON_INSTANCE.fromJson(jsonMapOfWorlds, WorldDTO.class);
-                            worldDTOMap.put("1",worldDTO);////////////////
-                        }
-                });
-
-        }
+    }
 
         // You can add additional methods and logic as needed
 
